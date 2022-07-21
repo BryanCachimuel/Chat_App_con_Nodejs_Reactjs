@@ -11,7 +11,7 @@ function App() {
 
   const UnirseSala = () => {
     if(username !=="" && room !==""){
-      
+      socket.emit("join_room", room)
     }
   }
 
@@ -32,7 +32,7 @@ function App() {
           setRoom(event.target.value);
         }}
       />
-      <button>Unirse a la Sala</button>
+      <button onClick={UnirseSala}>Unirse a la Sala</button>
     </div>
   );
 }
