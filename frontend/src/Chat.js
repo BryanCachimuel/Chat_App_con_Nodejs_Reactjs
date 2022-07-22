@@ -6,13 +6,14 @@ export default function Chat(socket, username, room) {
 
   const sendMessage = async () =>{
     if(currentMessage !== ""){
-      const messaageData = {
+      const messageData = {
         room: room,
         author: username,
         message: currentMessage,
         time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
       };
-      
+
+      await socket.emit("send_message", messageData);
     }
   };
 
@@ -30,7 +31,7 @@ export default function Chat(socket, username, room) {
             setCurrentMessage(event.target.value);
           }}
         />
-        <button>&#9658;</button>
+        <button onClick={sendMessage}>&#9658;</button>
       </div>
     </div>
   )
