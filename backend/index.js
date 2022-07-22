@@ -24,7 +24,11 @@ io.on("connection", (socket) => {
     socket.on("join_room", (data) => {
         socket.join(data);
         console.log(`Usuario con ID: ${socket.id} se a unido a la sala ${data}`)
-    })
+    });
+
+    socket.on("send_message", (data) => {
+        
+    });
 
     socket.on("disconnect", () => {
         console.log("Usuario Desconectado", socket.id);
