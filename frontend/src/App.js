@@ -9,17 +9,20 @@ function App() {
 
   const [username, setUsername] = useState("")
   const [room, setRoom] = useState("")
+  const [showChat, setShowChat] = useState(false)
 
   const UnirseSala = () => {
     if(username !=="" && room !==""){
-      socket.emit("join_room", room)
+      socket.emit("join_room", room);
+      setShowChat(true);
     }
   }
 
   return (
     <div className="App">
+      {!showChat ? (
      <div className='joinChatContainer'>
-     <h2>Bienvenido a la Sala de Chat</h2>
+     <h2>Sala de Chat</h2>
       <input 
         type="text" 
         placeholder="Usuario..." 
@@ -36,8 +39,10 @@ function App() {
       />
       <button onClick={UnirseSala}>Unirse a la Sala</button>
      </div>
-      
-      <Chat socket={socket} username={username} room={room}/>
+       )
+     : ( 
+        <Chat socket={socket} username={username} room={room}/>
+       )}
     </div>
   );
 }
