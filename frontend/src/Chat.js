@@ -1,15 +1,14 @@
-import React, {useState} from 'react'
-import io from 'socket.io-client'
+import React, {useEffect, useState} from 'react'
 
-export default function Chat(username) {
+function Chat({socket,username, room}) {
 
-  const socket = io.connect("http://localhost:3002")
 
   const [currentMessage, setCurrentMessage] = useState("");
 
   const sendMessage = async () =>{
     if(currentMessage !== ""){
       const messageData = {
+        room: room,
         author: username,
         message: currentMessage,
         time:
@@ -21,6 +20,12 @@ export default function Chat(username) {
       await socket.emit("send_message", messageData);
     }
   };
+
+  useEffect(() => {
+    socket.on("receive_message", (data) => {
+      console.log(data)
+    })
+  },[socket])
 
   return (
     <div>
@@ -41,3 +46,5 @@ export default function Chat(username) {
     </div>
   )
 }
+
+export default Chat;
