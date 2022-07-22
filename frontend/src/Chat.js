@@ -1,16 +1,21 @@
 import React, {useState} from 'react'
+import io from 'socket.io-client'
 
-export default function Chat(socket, username, room) {
+export default function Chat(username) {
+
+  const socket = io.connect("http://localhost:3002")
 
   const [currentMessage, setCurrentMessage] = useState("");
 
   const sendMessage = async () =>{
     if(currentMessage !== ""){
       const messageData = {
-        room: room,
         author: username,
         message: currentMessage,
-        time: new Date(Date.now()).getHours() + ":" + new Date(Date.now()).getMinutes(),
+        time:
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
       };
 
       await socket.emit("send_message", messageData);
