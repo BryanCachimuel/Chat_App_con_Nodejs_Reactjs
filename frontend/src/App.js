@@ -18,7 +18,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Bienvenido a la Sala de Chat</h1>
+     <div className='joinChatContainer'>
+     <h2>Bienvenido a la Sala de Chat</h2>
       <input 
         type="text" 
         placeholder="Usuario..." 
@@ -34,6 +35,7 @@ function App() {
         }}
       />
       <button onClick={UnirseSala}>Unirse a la Sala</button>
+     </div>
       
       <Chat socket={socket} username={username} room={room}/>
     </div>
